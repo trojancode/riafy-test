@@ -4,6 +4,7 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 const db = require('./models/index');
 const expressValidator = require('express-validator');
+var path = require('path');
 
 require('dotenv').config();
 
@@ -32,6 +33,7 @@ app.use('/api', authRoutes);
 app.use('/api/stocks', stocksRoutes);
 
 
+app.use('/',express.static("build"));
 
 const PORT = process.env.PORT || 4000;
 app.listen(PORT, () => console.log(`Server starts on  ${PORT}`));
