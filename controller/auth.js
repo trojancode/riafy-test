@@ -10,7 +10,7 @@ exports.signup = async (req, res) => {
             error: "All fields are required"
         })
     }
-
+    username = username.toLowerCase();
     let userData = await User.create({
         username: username,
         password: password,
@@ -39,6 +39,7 @@ exports.signup = async (req, res) => {
 exports.signin = async (req, res) => {
 
     let { username, password } = req.body;
+    username = username.toLowerCase();
 
     const userData = await User.findOne({
         where: { username: username }
@@ -50,7 +51,7 @@ exports.signin = async (req, res) => {
             })
         }
 
-        if (!this.authenticate(data, req.body.password)) {
+        if (!this.authenticate(data, password)) {
             return res.status(401).json({
                 error: "Wrong password or email"
             });
